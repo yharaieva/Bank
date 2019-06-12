@@ -10,4 +10,6 @@ public interface TransactionService {
     List<TransactionDto> findAllByRecipientOrSender(Long accountId);
 
     List<TransactionDto> findAllByDateRange(LocalDateTime from, LocalDateTime to);
+
+    List<TransactionDto> findAll();
 }

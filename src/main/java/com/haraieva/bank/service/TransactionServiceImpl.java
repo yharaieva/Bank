@@ -45,5 +45,14 @@ public class TransactionServiceImpl implements TransactionService {
                 e.getRecipient().getId(), e.getSender().getId(), e.getAmount(), e.getCreatedTime())).collect(Collectors.toList());
     }
 
+    @Override
+    public List<TransactionDto> findAll() {
+        return repository.findAll().stream()
+                .map(e -> new TransactionDto(
+                        e.getId(), e.getRecipient() != null ? e.getRecipient().getId() : null,
+                        e.getSender() != null ? e.getSender().getId() : null, e.getAmount(),
+                        e.getCreatedTime())).collect(Collectors.toList());
+    }
+
 
 }

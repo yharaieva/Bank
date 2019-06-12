@@ -3,6 +3,7 @@ package com.haraieva.bank.controller;
 import com.haraieva.bank.dto.TransactionDto;
 import com.haraieva.bank.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,14 +23,19 @@ public class TransactionController {
         this.service = service;
     }
 
-
     @GetMapping
-    public List<TransactionDto> getTransactions(
-            @RequestParam(value = "accountId", required = false) Long accountId,
-            @RequestParam(value = "from", required = false) LocalDateTime from,
-            @RequestParam(value = "to", required = false) LocalDateTime to) {
-        return accountId == null
-                ? service.findAllByDateRange(from, to)
-                : service.findAllByRecipientOrSender(accountId);
+    public String getTransactions(Model model,
+                                  @RequestParam(value = "accountId", required = false) Long accountId,
+                                  @RequestParam(value = "from", required = false) LocalDateTime from,
+                                  @RequestParam(value = "to", required = false) LocalDateTime to) {
+        if (accountId != null) {
+            model.addAttribute("transactions", service.findAllByRecipientOrSender(accountId));
+        } else if (from != null && to != null) {
+            model.addAttribute("transactions", service.findAllByDateRange(from, to));
+        } else {
+            model.addAttribute("transactions", service.findAll());
+        }
+
+        return "transactions";
     }
 }
