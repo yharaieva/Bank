@@ -8,7 +8,7 @@
 <h3>Welcome to Bank Application</h3>
 
 <a href="/clients">Clients list</a><br>
-<a href="/accounts/addAccount">Accounts list</a><br>
+<a href="/accounts">Accounts list</a><br>
 <a href="/transactions">Transactions list</a><br>
 <a href="/accounts/transfer">Make transfer</a><br>
 <a href="/accounts/withdraw">Withdraw money</a><br>

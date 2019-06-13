@@ -21,8 +21,8 @@
     </c:forEach>
 </table>
 
-<a href="/clients">Back</a>
 <a href="/accounts/addAccount">Add new account</a><br>
+<a href="/">Main Page</a>
 
 </body>
 </html>

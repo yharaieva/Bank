@@ -30,7 +30,7 @@ public class ClientController {
     @PostMapping("/addClient")
     public String addClient(@ModelAttribute("client") ClientDto clientDto) {
         service.addClient(clientDto);
-        return "clients";
+        return "index";
     }
 
     @GetMapping("/addClient")
@@ -38,5 +38,4 @@ public class ClientController {
         model.addAttribute("client", new ClientDto());
         return "addClient";
     }
-
 }

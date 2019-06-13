@@ -24,8 +24,7 @@
 </table>
 
 <a href="/clients/addClient">Add new client</a>
-<a href="/accounts/addAccount">Add new account</a><br>
-<a href="/clients">Refresh</a>
+<a href="/">Main page</a>
 
 </body>
 </html>

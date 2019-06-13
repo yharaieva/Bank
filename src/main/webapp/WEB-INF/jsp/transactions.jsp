@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <html>
 <head>
     <title>Transactions</title>
@@ -32,10 +34,10 @@
             <td><label id="accountId">Account Id <input type="text" name="accountId"/></label></td>
         </tr>
         <tr>
-            <td><label id="from">From <input type="date" name="from"/></label></td>
+            <td><label id="from">From <input type="datetime-local" name="from"/></label></td>
         </tr>
         <tr>
-            <td><label id="to">To <input type="date" name="to"/></label></td>
+            <td><label id="to">To <input type="datetime-local" name="to"/></label></td>
         </tr>
         <tr>
             <td><input type="submit" value="Search"/></td>

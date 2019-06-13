@@ -3,6 +3,7 @@ package com.haraieva.bank.controller;
 import com.haraieva.bank.dto.TransactionDto;
 import com.haraieva.bank.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/transactions")
 public class TransactionController {
 
@@ -24,8 +25,7 @@ public class TransactionController {
     }
 
     @GetMapping
-    public String getTransactions(Model model,
-                                  @RequestParam(value = "accountId", required = false) Long accountId,
+    public String getTransactions(Model model, @RequestParam(value = "accountId", required = false) Long accountId,
                                   @RequestParam(value = "from", required = false) LocalDateTime from,
                                   @RequestParam(value = "to", required = false) LocalDateTime to) {
         if (accountId != null) {
@@ -39,3 +39,4 @@ public class TransactionController {
         return "transactions";
     }
 }
+

@@ -1,6 +1,7 @@
 package com.haraieva.bank.controller;
 
 import com.haraieva.bank.dto.AccountDto;
+import com.haraieva.bank.dto.TransferRequest;
 import com.haraieva.bank.service.AccountService;
 import com.haraieva.bank.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +25,17 @@ public class AccountController {
 
     @GetMapping
     public String getAccountsByClientId(Model model,
-                                        @RequestParam(value = "clientId") Long clientId) {
-        model.addAttribute("accounts", accountService.findAllByClientId(clientId));
+                                        @RequestParam(value = "clientId", required = false) Long clientId) {
+        model.addAttribute("accounts", clientId != null
+                ? accountService.findAllByClientId(clientId)
+                : accountService.findAllAccounts());
         return "accounts";
     }
 
     @PostMapping("/addAccount")
     public String addAccount(@ModelAttribute("account") AccountDto accountDto) {
         clientService.addAccount(accountDto);
-        return "accounts";
+        return "index";
     }
 
     @GetMapping("/addAccount")
@@ -41,26 +44,40 @@ public class AccountController {
         return "addAccount";
     }
 
+    @PostMapping("/transfer")
+    public String makeTransfer(@ModelAttribute("transfer") TransferRequest request) {
+        accountService.transfer(request);
+        return "index";
+    }
+
     @GetMapping("/transfer")
-    public void makeTransfer(
-            @RequestParam(value = "senderId") Long senderId,
-            @RequestParam(value = "recipientId") Long recipientId,
-            @RequestParam(value = "amount") Double amount) {
-        accountService.makeTransfer(senderId, recipientId, amount);
+    public String makeTransferView(Model model) {
+        model.addAttribute("transfer", new TransferRequest());
+        return "makeTransfer";
+    }
+
+    @PostMapping("/withdraw")
+    public String withdrawMoneyView(@ModelAttribute("transfer") TransferRequest request) {
+        accountService.transfer(request);
+        return "index";
     }
 
     @GetMapping("/withdraw")
-    public void withdrawMoney(
-            @RequestParam(value = "accountId") Long accountId,
-            @RequestParam(value = "amount") Double amount) {
-        accountService.withdrawMoney(accountId, amount);
+    public String withdrawMoneyView(Model model) {
+        model.addAttribute("transfer", new TransferRequest());
+        return "withdrawMoney";
+    }
+
+    @PostMapping("/topup")
+    public String topUpAccount(@ModelAttribute("transfer") TransferRequest request) {
+        accountService.transfer(request);
+        return "index";
     }
 
     @GetMapping("/topup")
-    public void topUpAccount(
-            @RequestParam(value = "accountId") Long accountId,
-            @RequestParam(value = "amount") Double amount) {
-        accountService.topUpAccount(accountId, amount);
+    public String topUpAccount(Model model) {
+        model.addAttribute("transfer", new TransferRequest());
+        return "topUpMoney";
     }
 
 }
